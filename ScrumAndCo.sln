@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrumAndCo.Domain", "ScrumAndCo.Domain\ScrumAndCo.Domain.csproj", "{4EAE872C-BEF2-4003-A0A5-52CB31036A1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrumAndCo.Console", "ScrumAndCo.Console\ScrumAndCo.Console.csproj", "{D159539C-D435-4DFF-A1FF-0530C18782CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4EAE872C-BEF2-4003-A0A5-52CB31036A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EAE872C-BEF2-4003-A0A5-52CB31036A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EAE872C-BEF2-4003-A0A5-52CB31036A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EAE872C-BEF2-4003-A0A5-52CB31036A1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D159539C-D435-4DFF-A1FF-0530C18782CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D159539C-D435-4DFF-A1FF-0530C18782CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D159539C-D435-4DFF-A1FF-0530C18782CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D159539C-D435-4DFF-A1FF-0530C18782CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
