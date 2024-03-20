@@ -1,6 +1,6 @@
-﻿using ScrumAndCo.Domain.Sprint.State;
+﻿using ScrumAndCo.Domain.Sprints.States;
 
-namespace ScrumAndCo.Domain.Sprint;
+namespace ScrumAndCo.Domain.Sprints;
 
 public class Sprint
 {
@@ -11,18 +11,25 @@ public class Sprint
     public DateOnly ActiveFrom { get; set; }
     public DateOnly ActiveUntil { get; set; }
     
-    
     public Sprint()
     {
         this._sprintState = new PlanningState(this);
     }
 
+    // Method to change the sprint state to the next state (f.e from PlanningState to OngoingState)
     public void NextSprintState()
     {
         _sprintState.NextSprintState();
     }
+
+    // Method to cancel the sprint, this method will change the sprint state to CancelledState (finished state)
+    public void CancelSprint()
+    {
+        ChangeSprintState(new CancelledState(this));
+    }
     
-    public void ChangeSprintState(SprintState sprintState)
+    // Internal method (only accessible from the sprint state namespace) to change the sprint state to the given state
+    internal void ChangeSprintState(SprintState sprintState)
     {
         Console.WriteLine($"New sprint state: {sprintState.GetType().FullName}");
         _sprintState = sprintState;

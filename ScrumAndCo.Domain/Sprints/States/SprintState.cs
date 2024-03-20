@@ -1,8 +1,8 @@
-﻿namespace ScrumAndCo.Domain.Sprint.State;
+﻿namespace ScrumAndCo.Domain.Sprints.States;
 
 public abstract class SprintState
 {
-    protected Sprint _context;
+    internal Sprint _context;
 
     public SprintState(Sprint context)
     {
