@@ -6,9 +6,4 @@ public class TodoState(BacklogItem context) : ItemState(context)
     {
         Console.WriteLine("Backlog item is in Todo state");
     }
-
-    public override string GetFullName()
-    {
-        return "Todo State";
-    }
 }
