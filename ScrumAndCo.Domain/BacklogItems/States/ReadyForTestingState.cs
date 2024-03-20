@@ -6,4 +6,9 @@ public class ReadyForTestingState(BacklogItem context) : ItemState(context)
     {
         Console.WriteLine("Backlog item is in ReadyForTesting state");
     }
+
+    public override string GetFullName()
+    {
+        return "Ready For Testing State";
+    }
 }

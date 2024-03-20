@@ -2,7 +2,7 @@
 
 namespace ScrumAndCo.Domain.Sprints;
 
-public class Sprint
+public abstract class Sprint
 {
     private SprintState _sprintState;
     

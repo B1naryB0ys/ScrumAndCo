@@ -8,4 +8,9 @@ public class InProgressState(BacklogItem context) : ItemState(context)
     {
         Console.WriteLine("Backlog item is in InProgress state");
     }
+
+    public override string GetFullName()
+    {
+        return "In Progress State";
+    }
 }

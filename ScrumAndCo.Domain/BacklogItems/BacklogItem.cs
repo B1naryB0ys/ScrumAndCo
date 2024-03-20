@@ -20,7 +20,7 @@ public class BacklogItem
     
     public void ChangeItemState(ItemState itemState)
     {
-        Console.WriteLine($"New backlog item state: {itemState.GetType().FullName}");
+        Console.WriteLine($"New backlog item state: {itemState.GetFullName()}");
         _backlogItemState = itemState;
     }
 }

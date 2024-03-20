@@ -10,4 +10,5 @@ public abstract class ItemState
     }
     
     public abstract void OnStateEnter();
+    public abstract string GetFullName();
 }

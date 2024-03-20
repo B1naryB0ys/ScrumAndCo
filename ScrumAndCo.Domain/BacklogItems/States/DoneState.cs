@@ -6,4 +6,9 @@ public class DoneState(BacklogItem context) : ItemState(context)
     {
         Console.WriteLine("Backlog item is in Done state");
     }
+
+    public override string GetFullName()
+    {
+        return "Done State";
+    }
 }
