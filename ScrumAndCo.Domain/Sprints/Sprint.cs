@@ -1,4 +1,5 @@
-﻿using ScrumAndCo.Domain.Sprints.States;
+﻿using ScrumAndCo.Domain.BacklogItems;
+using ScrumAndCo.Domain.Sprints.States;
 
 namespace ScrumAndCo.Domain.Sprints;
 
@@ -10,6 +11,9 @@ public abstract class Sprint
     public string Description { get; set; }
     public DateOnly ActiveFrom { get; set; }
     public DateOnly ActiveUntil { get; set; }
+    
+    public Project Project { get; set; }
+    public List<BacklogItem> BacklogItems { get; set; }
     
     public Sprint()
     {
