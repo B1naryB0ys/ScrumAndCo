@@ -1,11 +1,7 @@
-﻿namespace ScrumAndCo.Domain.Sprint.State;
+﻿namespace ScrumAndCo.Domain.Sprints.States;
 
-public class PlanningState : SprintState
+public class PlanningState(Sprint context) : SprintState(context)
 {
-    public PlanningState(Sprint context) : base(context)
-    {
-    }
-
     public override void NextSprintState()
     {
         _context.ChangeSprintState(new OngoingState(_context));
