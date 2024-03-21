@@ -8,6 +8,5 @@ public abstract class SprintState
     {
         _context = context;
     }
-
     public abstract void NextSprintState();
 }
