@@ -38,4 +38,7 @@ public abstract class Sprint
         Console.WriteLine($"New sprint state: {sprintState.GetType().FullName}");
         _sprintState = sprintState;
     }
+    
+    // Visitor pattern method to accept a sprint visitor
+    internal abstract void AcceptVisitor(ISprintVisitor visitor);
 }
