@@ -6,4 +6,8 @@ public class ReviewSprint : Sprint
     {
         visitor.AcceptReview(this);
     }
+
+    public ReviewSprint(string name, string description, DateOnly activeFrom, DateOnly activeUntil, Project project) : base(name, description, activeFrom, activeUntil, project)
+    {
+    }
 }

@@ -2,8 +2,8 @@
 
 public class TodoState(BacklogItem context) : ItemState(context)
 {
-    public override void OnStateEnter()
+    public override void ToInProgress()
     {
-        Console.WriteLine("Backlog item is in Todo state");
+        _context.ToInProgressState();
     }
 }

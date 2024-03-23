@@ -4,8 +4,8 @@ namespace ScrumAndCo.Domain.BacklogItems.States;
 
 public class InProgressState(BacklogItem context) : ItemState(context)
 {
-    public override void OnStateEnter()
+    public override void ToReadyForTesting()
     {
-        Console.WriteLine("Backlog item is in InProgress state");
+        _context.ToReadyForTestingState();
     }
 }

@@ -1,12 +1,24 @@
 ﻿namespace ScrumAndCo.Domain.BacklogItems.States;
 
-public class ReadyForTestingState(BacklogItem context) : ItemState(context)
+public class ReadyForTestingState : ItemState
 {
-    public override void OnStateEnter()
+    public ReadyForTestingState(BacklogItem context) : base(context)
     {
-        // TODO: Notify the TESTERS and PRODUCT_OWNER when a backlog item is ready for testing
-        context.NotificationSubject.Notify($"Backlog item {context.Name} is ready for testing");
+        var testers = context.Project.GetProjectTesters();
+        if (testers.Count > 0)
+        {
+            foreach (var tester in testers)
+            {
+                // Notify the tester that the item is ready for testing
+                if (tester != null) _context.NotificationSubject.Attach(tester);
+            }
+        }
         
-        Console.WriteLine("Backlog item is in ReadyForTesting state");
+        _context.NotificationSubject.Notify($"{_context.Name} is ready for testing");
+    }
+
+    public override void ToTesting()
+    {
+        _context.ToTestingState();
     }
 }

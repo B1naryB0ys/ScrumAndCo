@@ -2,8 +2,14 @@
 
 public class TestingState(BacklogItem context) : ItemState(context)
 {
-    public override void OnStateEnter()
+    public override void ToTodo()
     {
-        Console.WriteLine("Backlog item is in Testing state");
+        // A problem was found in the BacklogItem class, move the item to the TodoState (work for developer)
+        context.ToTodoState();
+    }
+    
+    public override void ToTested()
+    {
+        _context.ToTestedState();
     }
 }

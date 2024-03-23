@@ -21,4 +21,9 @@ public class NotificationSubject<T> : ISubject<T>
             observer.Update(value);
         }
     }
+
+    public void NotifySingle(T value, IObserver<T> observer)
+    {
+        observer.Update(value);
+    }
 }
