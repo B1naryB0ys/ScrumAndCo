@@ -6,6 +6,6 @@ public class ClosedState (Thread context) : ThreadState(context)
 {
     public override void NextThreadState()
     {
-        throw new IllegalStateException("The thread is already closed. You can't change its state.");
+        // TODO: Move thread to the project "forum" through the context
     }
 }

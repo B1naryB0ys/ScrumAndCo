@@ -29,7 +29,7 @@ public abstract class Thread
         _threadState.NextThreadState();
     }
 
-    public void addComment(Comment comment)
+    public void AddComment(Comment comment)
     {
         this.Comments.Add(comment);
         // TODO: notify everyone that left a comment to the thread including author thread
