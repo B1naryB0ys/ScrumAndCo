@@ -11,7 +11,7 @@ namespace ScrumAndCo.Test;
 
 public class ForumTests
 {
-    // FR-10.1 A discussion thread can be started on a backlog item
+    // FR-9.1 A discussion thread can be started on a backlog item
     [Fact]
     public void Test_Discussion_Can_Be_Started_On_Backlog_Item()
     {
@@ -35,7 +35,7 @@ public class ForumTests
         Assert.Contains(thread, backlogItem.Threads);
     }
     
-    // FR-10.2 If a backlogItem is marked as finished, all discussion threads is closed
+    // FR-9.2 If a backlogItem is marked as finished, all discussion threads is closed
     [Fact]
     public void Test_All_Discussion_Threads_Are_Archived_When_Backlog_Item_Is_Finished()
     {
@@ -67,7 +67,7 @@ public class ForumTests
         Assert.IsType<ArchivedState>(thread._threadState);
     }
     
-    // FR-10.3 When a thread receives a comment, all members of the project are notified
+    // FR-9.3 When a thread receives a comment, all members of the project are notified
     [Fact]
     public void Test_Members_Are_Notified_When_Thread_Receives_Comment()
     {
@@ -100,7 +100,7 @@ public class ForumTests
         notificationPreferenceService.Verify(x => x.SendMessage(It.IsAny<string>()), Times.Exactly(2));
     }
     
-    // FR-10.4 When a thread is closed, it is moved to the project
+    // FR-9.4 When a thread is closed, it is moved to the project
     [Fact]
     public void Test_Thread_Is_Moved_To_Project_When_Closed()
     {
@@ -129,7 +129,7 @@ public class ForumTests
         Assert.DoesNotContain(thread, backlogItem.Threads);
     }
     
-    // FR-10.4 When a thread is closed, it is moved to the project
+    // FR-9.4 When a thread is closed, it is moved to the project
     [Fact]
     public void Test_Thread_Is_Moved_To_Project_When_Archived()
     {

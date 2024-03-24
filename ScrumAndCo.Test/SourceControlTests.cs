@@ -5,7 +5,7 @@ namespace ScrumAndCo.Test;
 
 public class SourceControlTests
 {
-    // FR-13.1 Creating a new branch should add it to the repository
+    // FR-11.1 Creating a new branch should add it to the repository
     [Fact]
     public void Test_New_Branch_Is_Added_To_Repository()
     {
@@ -20,7 +20,7 @@ public class SourceControlTests
         Assert.Equal("TestBranch", sourceController.GetCurrentBranch());
     }
     
-    // FR-13.3 Checking out a branch should switch to that branch
+    // FR-11.3 Checking out a branch should switch to that branch
     [Fact]
     public void Test_Checkout_Branch_Switches_To_Branch()
     {
@@ -35,7 +35,7 @@ public class SourceControlTests
         Assert.Equal("TestBranch", sourceController.GetCurrentBranch());
     }
     
-    // FR-13.4 A developer should be able to push changes to the remote repository
+    // FR-11.4 A developer should be able to push changes to the remote repository
     [Fact]
     public void Test_Push_Changes_To_Remote_Repository()
     {
@@ -52,7 +52,7 @@ public class SourceControlTests
         Assert.Single(sourceController.GetCommitHistory("TestBranch"));
     }
     
-    // FR-13.5 A developer should be able to commit changes to the current branch
+    // FR-11.5 A developer should be able to commit changes to the current branch
     [Fact]
     public void Test_Commit_Changes_To_Current_Branch()
     {

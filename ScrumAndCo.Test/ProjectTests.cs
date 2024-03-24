@@ -35,7 +35,7 @@ public class ProjectTests
     }
 
     [Fact]
-    // FR-12.1 A project should only have one scrum master
+    // FR-10.1 A project should only have one scrum master
     public void Adding_More_Than_One_Scrum_Master_Should_Throw_Exception()
     {
         // Arrange
@@ -48,7 +48,7 @@ public class ProjectTests
     }
 
     [Fact]
-    // FR-12.2 A project should only have one product owner
+    // FR-10.2 A project should only have one product owner
     public void Adding_More_Than_One_Product_Owner_Should_Throw_Exception()
     {
         // Arrange
@@ -65,7 +65,7 @@ public class ProjectTests
     }
 
     [Fact]
-    // FR-12.3 A project should only have one lead developer
+    // FR-10.3 A project should only have one lead developer
     public void Adding_More_Than_One_Lead_Developer_Should_Throw_Exception()
     {
         // Arrange
