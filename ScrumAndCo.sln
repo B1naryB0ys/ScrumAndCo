@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrumAndCo.Domain", "ScrumA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrumAndCo.Console", "ScrumAndCo.Console\ScrumAndCo.Console.csproj", "{D159539C-D435-4DFF-A1FF-0530C18782CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrumAndCo.Test", "ScrumAndCo.Test\ScrumAndCo.Test.csproj", "{8A34CAC4-47DD-471C-A6AC-2D13E9014465}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{D159539C-D435-4DFF-A1FF-0530C18782CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D159539C-D435-4DFF-A1FF-0530C18782CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D159539C-D435-4DFF-A1FF-0530C18782CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A34CAC4-47DD-471C-A6AC-2D13E9014465}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A34CAC4-47DD-471C-A6AC-2D13E9014465}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A34CAC4-47DD-471C-A6AC-2D13E9014465}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A34CAC4-47DD-471C-A6AC-2D13E9014465}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

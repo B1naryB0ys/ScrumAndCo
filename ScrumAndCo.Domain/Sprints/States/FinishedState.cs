@@ -1,15 +1,12 @@
 ﻿using ScrumAndCo.Domain.Exceptions;
 
-namespace ScrumAndCo.Domain.Sprint.State;
+namespace ScrumAndCo.Domain.Sprints.States;
 
-public class FinishedState : SprintState
+public class FinishedState(Sprint context) : SprintState(context)
 {
-    public FinishedState(Sprint context) : base(context)
-    {
-    }
-
     public override void NextSprintState()
     {
-        throw new IllegalStateException("The sprint is already finished. You can't change its state.");
+        ISprintVisitor visitor = new SprintVisitor();
+        _context.AcceptVisitor(visitor);
     }
 }
