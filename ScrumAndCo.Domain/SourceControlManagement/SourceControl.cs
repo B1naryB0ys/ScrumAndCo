@@ -39,6 +39,16 @@ public class SourceControl : ISourceControl
         _sourceControlStrategy.CheckoutBranch(branchName);
     }
 
+    public string GetCurrentBranch()
+    {
+        return _sourceControlStrategy.GetCurrentBranch();
+    }
+
+    public List<string> GetCommitHistory(string branchName)
+    {
+        return _sourceControlStrategy.GetCommitHistory(branchName);
+    }
+
     public void MergeBranch(string fromBranch, string intoBranch)
     {
         _sourceControlStrategy.MergeBranch(fromBranch, intoBranch);

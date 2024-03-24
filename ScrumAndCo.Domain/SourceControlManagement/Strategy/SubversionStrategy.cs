@@ -32,6 +32,16 @@ public class SubversionStrategy : ISourceControl
         throw new NotImplementedException();
     }
 
+    public string GetCurrentBranch()
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<string> GetCommitHistory(string branchName)
+    {
+        throw new NotImplementedException();
+    }
+
     public void MergeBranch(string fromBranch, string intoBranch)
     {
         throw new NotImplementedException();

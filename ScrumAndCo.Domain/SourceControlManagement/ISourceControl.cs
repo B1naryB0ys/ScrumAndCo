@@ -9,5 +9,7 @@ public interface ISourceControl
     public void Log(string branchName, bool includeLocal);
     
     public void CheckoutBranch(string branchName);
+    public string GetCurrentBranch();
+    public List<string> GetCommitHistory(string branchName);
     public void MergeBranch(string fromBranch, string intoBranch);
 }

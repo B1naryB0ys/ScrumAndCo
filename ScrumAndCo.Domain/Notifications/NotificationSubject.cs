@@ -9,11 +9,6 @@ public class NotificationSubject<T> : ISubject<T>
         _observers.Add(observer);
     }
 
-    public void Detach(IObserver<T> observer)
-    {
-        _observers.Remove(observer);
-    }
-
     public void NotifyAll(T value)
     {
         foreach (var observer in _observers)
@@ -25,13 +20,5 @@ public class NotificationSubject<T> : ISubject<T>
     public void NotifySingle(T value, IObserver<T> observer)
     {
         observer.Update(value);
-    }
-
-    public void NotifyMany(T value, List<IObserver<T>> observers)
-    {
-        foreach (var observer in observers)
-        {
-            observer.Update(value);
-        }
     }
 }

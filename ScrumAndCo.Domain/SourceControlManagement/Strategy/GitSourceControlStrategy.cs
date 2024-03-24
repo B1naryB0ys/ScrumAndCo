@@ -2,7 +2,8 @@
 
 public class GitSourceControlStrategy : ISourceControl
 {
-    private Dictionary<string, List<string>> _commitHistory = new Dictionary<string, List<string>>();
+    private Dictionary<string, List<string>> _repository = new Dictionary<string, List<string>>();
+    private string _currentBranch = "master";
 
     public void CloneRepository(string repositoryUrl)
     {
@@ -12,11 +13,11 @@ public class GitSourceControlStrategy : ISourceControl
     public void Commit(string message)
     {
         Console.WriteLine($"Committing changes with message: {message}");
-        if (!_commitHistory.ContainsKey("master"))
+        if (!_repository.ContainsKey(_currentBranch))
         {
-            _commitHistory["master"] = new List<string>();
+            _repository[_currentBranch] = new List<string>();
         }
-        _commitHistory["master"].Add(message);
+        _repository[_currentBranch].Add(message);
     }
 
     public void Push()
@@ -31,10 +32,9 @@ public class GitSourceControlStrategy : ISourceControl
 
     public void Log(string branchName, bool includeLocal)
     {
-        Console.WriteLine($"Commit history for branch {branchName}:");
-        if (_commitHistory.ContainsKey(branchName))
+        if (_repository.ContainsKey(branchName))
         {
-            foreach (var commit in _commitHistory[branchName])
+            foreach (var commit in _repository[branchName])
             {
                 Console.WriteLine(commit);
             }
@@ -47,7 +47,24 @@ public class GitSourceControlStrategy : ISourceControl
 
     public void CheckoutBranch(string branchName)
     {
+        // Check if branch exists
+        if (!_repository.ContainsKey(branchName))
+        {
+            _repository[branchName] = new List<string>();
+        }
+        
+        _currentBranch = branchName;
         Console.WriteLine($"Switching to branch {branchName}");
+    }
+
+    public string GetCurrentBranch()
+    {
+        return _currentBranch;
+    }
+
+    public List<string> GetCommitHistory(string branchName)
+    {
+        return _repository.ContainsKey(branchName) ? _repository[branchName] : new List<string>();
     }
 
     public void MergeBranch(string fromBranch, string intoBranch)
