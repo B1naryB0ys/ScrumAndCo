@@ -9,12 +9,17 @@ public class TestedState(BacklogItem context) : ItemState(context)
         if(!context.Project.CanUserMoveBacklogItemToDone(user)) {
             throw new IllegalStateActionException("User does not have permission to move item to Done state");
         }
+
+        if (!context.AllTasksCompleted())
+        {
+            throw new IllegalStateActionException("All tasks must be completed before moving to Done state");
+        }
         
-        _context.ToDoneState();
+        _context.ChangeState(new DoneState(_context));
     }
 
     public override void ToReadyForTesting()
     {
-        _context.ToReadyForTestingState();
+        _context.ChangeState(new ReadyForTestingState(_context));
     }
 }

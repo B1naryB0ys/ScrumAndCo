@@ -27,4 +27,9 @@ public abstract class SprintState
     {
         throw new IllegalStateActionException("Cannot add backlog items to the sprint in this state");
     }
+    
+    public virtual void RunPipeLine(bool retry = true)
+    {
+        throw new IllegalStateActionException("Cannot run pipeline in this state");
+    }
 }

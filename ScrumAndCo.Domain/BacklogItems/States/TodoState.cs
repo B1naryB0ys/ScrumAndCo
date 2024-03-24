@@ -4,6 +4,6 @@ public class TodoState(BacklogItem context) : ItemState(context)
 {
     public override void ToInProgress()
     {
-        _context.ToInProgressState();
+        _context.ChangeState(new InProgressState(_context));
     }
 }

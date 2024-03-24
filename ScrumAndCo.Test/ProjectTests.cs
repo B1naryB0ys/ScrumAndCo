@@ -1,4 +1,5 @@
 using ScrumAndCo.Domain;
+using ScrumAndCo.Domain.Sprints;
 
 namespace ScrumAndCo.Test;
 
@@ -12,7 +13,7 @@ public class ProjectTests
         var scrumMaster = new User("John", "the master of scrum", "john.doe@mail.com", new DateOnly(1980, 1, 1));
 
         // Act
-        var project = new Project("ScrumAndCo Testing", "", "https://scrumandco.com", scrumMaster);
+        var project = new Project("ScrumAndCo Testing", "", "https://scrumandco.com", scrumMaster, new SprintFactory());
 
         // Assert
         Assert.NotNull(project);
@@ -26,7 +27,7 @@ public class ProjectTests
     {
         // Arrange
         var scrumMaster = new User("John", "the master of scrum", "john.doe@mail.com", new DateOnly(1980, 1, 1));
-        var project = new Project("ScrumAndCo Testing", "", "https://scrumandco.com", scrumMaster);
+        var project = new Project("ScrumAndCo Testing", "", "https://scrumandco.com", scrumMaster, new SprintFactory());
         
         // Act
         var member = new User("Jane", "Doe", "jane.doe@mail.com", new DateOnly(1980, 1, 1));
@@ -34,12 +35,12 @@ public class ProjectTests
     }
 
     [Fact]
-    // FR-13.1 A project should only have one scrum master
+    // FR-12.1 A project should only have one scrum master
     public void Adding_More_Than_One_Scrum_Master_Should_Throw_Exception()
     {
         // Arrange
         var scrumMaster = new User("John", "the master of scrum", "john.doe@mail.com", new DateOnly(1980, 1, 1));
-        var project = new Project("ScrumAndCo Testing", "", "https://scrumandco.com", scrumMaster);
+        var project = new Project("ScrumAndCo Testing", "", "https://scrumandco.com", scrumMaster, new SprintFactory());
         var additionalScrumMaster = new User("Jane", "Doe", "jane.doe@mail.com", new DateOnly(1980, 1, 1));
 
         // Act / Assert
@@ -47,12 +48,12 @@ public class ProjectTests
     }
 
     [Fact]
-    // FR-13.2 A project should only have one product owner
+    // FR-12.2 A project should only have one product owner
     public void Adding_More_Than_One_Product_Owner_Should_Throw_Exception()
     {
         // Arrange
         var scrumMaster = new User("John", "the master of scrum", "john.doe@mail.com", new DateOnly(1980, 1, 1));
-        var project = new Project("ScrumAndCo Testing", "", "https://scrumandco.com", scrumMaster);
+        var project = new Project("ScrumAndCo Testing", "", "https://scrumandco.com", scrumMaster, new SprintFactory());
 
         var productOwner = new User("Jane", "Doe", "jane.doe@mail.com", new DateOnly(1980, 1, 1));
         project.AddMember(productOwner, ProjectRole.PRODUCT_OWNER);
@@ -64,12 +65,12 @@ public class ProjectTests
     }
 
     [Fact]
-    // FR-13.3 A project should only have one lead developer
+    // FR-12.3 A project should only have one lead developer
     public void Adding_More_Than_One_Lead_Developer_Should_Throw_Exception()
     {
         // Arrange
         var scrumMaster = new User("John", "the master of scrum", "john.doe@mail.com", new DateOnly(1980, 1, 1));
-        var project = new Project("ScrumAndCo Testing", "", "https://scrumandco.com", scrumMaster);
+        var project = new Project("ScrumAndCo Testing", "", "https://scrumandco.com", scrumMaster, new SprintFactory());
 
         var leadDeveloper = new User("Jane", "Doe", "jane.doe@mail.com", new DateOnly(1980, 1, 1));
         project.AddMember(leadDeveloper, ProjectRole.LEAD_DEVELOPER);

@@ -6,37 +6,36 @@ namespace ScrumAndCo.Domain.Sprints.States;
 
 public class ReleaseState : SprintState
 {
-    private readonly NotificationSubject<string> _notificationSubject = new();
-    
     public ReleaseState(Sprint context) : base(context)
     {
-        // TODO: Add pipeline fail notification receiver
-        _notificationSubject.Attach(_context.Project.GetProjectScrumMaster());
-        _notificationSubject.Attach(_context.Project.GetProductOwner());
-        
-        RunPipeline();
+         _context.NotificationSubject.Attach(_context.Project.GetProjectScrumMaster());
+         _context.NotificationSubject.Attach(_context.Project.GetProductOwner());
     }
 
+    // Used for cancelling the release state when the sprint is rejected by a member
     public override void NextSprintState()
     {
         _context.ChangeSprintState(new ClosedState(_context));
+        
+        // Notify the scrum master and product owner 
+        _context.NotificationSubject.NotifyAll($"The sprint: {_context.Name} has been rejected and therefore cancelled");
     }
 
-    private void RunPipeline(bool retry = true)
+    public override void RunPipeLine(bool retry = true)
     {
         try
         {
             _context.Pipeline.AcceptVisitor(new PipelineVisitor());
             
             // Notify the scrum master and product owner when the pipeline succeeds
-            _notificationSubject.NotifyAll("The pipeline has successfully executed");
+            _context.NotificationSubject.NotifyAll("The pipeline has successfully executed");
             
             NextSprintState();
         }
         catch (Exception ex)
         {
             // Notify only the scrum master when a pipeline fails
-            _notificationSubject.NotifySingle($"The pipeline failed with the error: {ex.Message}", _context.Project.GetProjectScrumMaster());
+            _context.NotificationSubject.NotifySingle($"The pipeline failed with the error: {ex.Message}", _context.Project.GetProjectScrumMaster());
 
             if (!retry)
             {
@@ -46,7 +45,7 @@ public class ReleaseState : SprintState
             }
             
             // Retry the pipeline when it fails (retry chosen by the user)
-            RunPipeline(false);
+            RunPipeLine(false);
         }
     }
 }

@@ -4,7 +4,7 @@ using ThreadState = ScrumAndCo.Domain.Forum.States.ThreadState;
 
 namespace ScrumAndCo.Domain.Forum;
 
-public abstract class Thread
+public class Thread
 {
     private ThreadState _threadState;
     public string Topic;
