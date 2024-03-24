@@ -1,20 +1,21 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using ScrumAndCo.Domain;
 using ScrumAndCo.Domain.BacklogItems;
 using ScrumAndCo.Domain.BacklogItems.States;
+using ScrumAndCo.Domain.Notifications;
+using ScrumAndCo.Domain.Pipeline;
+using ScrumAndCo.Domain.Pipeline.Step.Build;
 using ScrumAndCo.Domain.Sprints;
 
-// Testing sprint states
-/*var sprint = new Sprint();
-sprint.NextSprintState();
-sprint.CancelSprint();
-sprint.NextSprintState();
-sprint.NextSprintState();
-sprint.NextSprintState();*/
 
-var backlogItem = new BacklogItem("Aanmaken button", "Aanmaken van een nieuwe button");
-backlogItem.ChangeItemState(new TodoState(backlogItem));
-backlogItem.ChangeItemState(new TestingState(backlogItem));
+// Arrange
+var scrumMaster = new User("John", "the master of scrum", "john.doe@mail.com", new DateOnly(1980, 1, 1));
+var project = new Project("ScrumAndCo Testing", "", "https://scrumandco.com", scrumMaster);
+var tester = new User("Jane", "Doe", "jane.doe@mail.com", new DateOnly(1980, 1, 1));
+project.AddMember(tester, ProjectRole.TESTER);
+var backlogItem = new BacklogItem("Test Backlog Item", "Test Description", project, new NotificationSubject<string>());
 
-SprintFactory.CreateSprint(SprintTypes.Release);
-SprintFactory.CreateSprint(SprintTypes.Review);
+// Act
+tester.AddNotificationPreference(new SlackNotificationService());
+backlogItem.ToReadyForTestingState();

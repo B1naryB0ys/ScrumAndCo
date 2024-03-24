@@ -7,7 +7,7 @@ public class ReleaseSprint : Sprint
         visitor.AcceptRelease(this);
     }
 
-    public ReleaseSprint(string name, string description, DateOnly activeFrom, DateOnly activeUntil, Project project) : base(name, description, activeFrom, activeUntil, project)
+    public ReleaseSprint(string name, string description, DateOnly activeFrom, DateOnly activeUntil, Project project, Pipeline.Pipeline pipeline) : base(name, description, activeFrom, activeUntil, project, pipeline)
     {
     }
 }

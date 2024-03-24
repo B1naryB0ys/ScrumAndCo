@@ -18,6 +18,11 @@ public abstract class SprintState
         throw new IllegalStateActionException("Cannot change properties of the sprint in this state");
     }
     
+    public virtual void UploadReview(string documentUrl)
+    {
+        throw new IllegalStateActionException("Cannot upload review in this state");
+    }
+    
     public virtual void AddBacklogItem(BacklogItem backlogItem)
     {
         throw new IllegalStateActionException("Cannot add backlog items to the sprint in this state");

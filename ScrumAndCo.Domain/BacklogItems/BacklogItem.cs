@@ -7,8 +7,8 @@ namespace ScrumAndCo.Domain.BacklogItems;
 public class BacklogItem
 {
     private ItemState _backlogItemState;
-    
-    internal NotificationSubject<string> NotificationSubject = new NotificationSubject<string>();
+
+    internal ISubject<string> _notificationSubject;
     
     public Guid Id { get; set; }
     
@@ -20,7 +20,9 @@ public class BacklogItem
     public User? AssignedTo { get; set; }
     public List<Task> Tasks { get; set; }
     
-    public BacklogItem(string name, string description, Project project)
+    public List<Forum.Thread> Threads { get; set; }
+    
+    public BacklogItem(string name, string description, Project project, ISubject<string> notificationSubject)
     {
         Id = Guid.NewGuid();
         Name = name;
@@ -28,14 +30,16 @@ public class BacklogItem
         Project = project;
         _backlogItemState = new TodoState(this);
         Tasks = new List<Task>();
+        Threads = new List<Forum.Thread>();
         
         // Add the scrum master as a subscriber to the notification subject
-        NotificationSubject.Attach(Project.GetProjectScrumMaster());
+        _notificationSubject = notificationSubject;
+        _notificationSubject.Attach(Project.GetProjectScrumMaster());
     }
     
     public void Subscribe(User user)
     {
-        NotificationSubject.Attach(user);
+        _notificationSubject.Attach(user);
     }
     
     public void AddTask(Task task)
@@ -46,6 +50,16 @@ public class BacklogItem
     public void RemoveTask(Task task)
     {
         Tasks.Remove(task);
+    }
+    
+    public void AddThread(Forum.Thread thread)
+    {
+        Threads.Add(thread);
+    }
+    
+    public void RemoveThread(Forum.Thread thread)
+    {
+        Threads.Remove(thread);
     }
     
     public bool AllTasksCompleted()
@@ -60,7 +74,7 @@ public class BacklogItem
             Console.WriteLine($"Backlog item is already assigned to {AssignedTo.FirstName} {AssignedTo.LastName}");
             
             // Alerting the scrum master that the project members are trying to reassign the task
-            NotificationSubject.NotifySingle($"{AssignedTo.FirstName} is trying to swap his task with {user.FirstName}",Project.GetProjectScrumMaster());
+            _notificationSubject.NotifySingle($"{AssignedTo.FirstName} is trying to swap his task with {user.FirstName}",Project.GetProjectScrumMaster());
             
             return;
         }
@@ -69,32 +83,32 @@ public class BacklogItem
     }
     
     // State pattern methods
-    internal void ToTodoState()
+    public void ToTodoState()
     {
         _backlogItemState = new TodoState(this);
     }
 
-    internal void ToInProgressState()
+    public void ToInProgressState()
     {
         _backlogItemState = new InProgressState(this);
     }
 
-    internal void ToReadyForTestingState()
+    public void ToReadyForTestingState()
     {
         _backlogItemState = new ReadyForTestingState(this);
     }
 
-    internal void ToTestingState()
+    public void ToTestingState()
     {
         _backlogItemState = new TestingState(this);
     }
 
-    internal void ToTestedState()
+    public void ToTestedState()
     {
         _backlogItemState = new TestedState(this);
     }
 
-    internal void ToDoneState()
+    public void ToDoneState()
     {
         _backlogItemState = new DoneState(this);
     }

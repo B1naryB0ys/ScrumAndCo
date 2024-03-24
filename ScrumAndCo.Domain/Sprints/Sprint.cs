@@ -1,6 +1,6 @@
 ﻿using ScrumAndCo.Domain.BacklogItems;
 using ScrumAndCo.Domain.Sprints.States;
-
+using ScrumAndCo.Domain.Pipeline;
 namespace ScrumAndCo.Domain.Sprints;
 
 public abstract class Sprint
@@ -15,8 +15,9 @@ public abstract class Sprint
     
     public Project Project { get; set; }
     public List<BacklogItem> BacklogItems { get; set; }
+    public Pipeline.Pipeline Pipeline { get; set; }
     
-    public Sprint(string name, string description, DateOnly activeFrom, DateOnly activeUntil, Project project)
+    public Sprint(string name, string description, DateOnly activeFrom, DateOnly activeUntil, Project project, Pipeline.Pipeline pipeline)
     {
         Name = name;
         Description = description;
@@ -34,10 +35,10 @@ public abstract class Sprint
         _sprintState.NextSprintState();
     }
 
-    // Method to cancel the sprint, this method will change the sprint state to CancelledState (finished state)
+    // Method to cancel the sprint, this method will change the sprint state to ClosedState (cancelled state)
     public void CancelSprint()
     {
-        ChangeSprintState(new CancelledState(this));
+        ChangeSprintState(new ClosedState(this));
     }
     
     // Method to change the properties of the sprint (Can only be called from the PlanningState)

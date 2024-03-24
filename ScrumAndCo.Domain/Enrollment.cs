@@ -7,5 +7,11 @@ public class Enrollment
     
     // Navigation properties
     public User? User { get; set; }
-    public Project Project { get; set; }
+    
+    public Enrollment(User user, ProjectRole role)
+    {
+        User = user;
+        Role = role;
+        JoinedOn = DateTime.Now;
+    }
 }
