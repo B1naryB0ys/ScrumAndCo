@@ -19,6 +19,6 @@ public class ReadyForTestingState : ItemState
 
     public override void ToTesting()
     {
-        _context.ToTestingState();
+        _context.ChangeState(new TestingState(_context));
     }
 }

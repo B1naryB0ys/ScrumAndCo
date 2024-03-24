@@ -1,4 +1,5 @@
 ﻿using ScrumAndCo.Domain.BacklogItems;
+using ScrumAndCo.Domain.Notifications;
 using ScrumAndCo.Domain.Sprints;
 
 namespace ScrumAndCo.Domain;
@@ -11,10 +12,11 @@ public class Project
     public string ImageUrl { get; set; }
     public List<Sprint> Sprints { get; set; }
     public List<Enrollment> Members { get; set; }
-    public List<BacklogItem> BacklogItems { get; set; }
     public List<Forum.Thread> Forum { get; set; }
     
-    public Project(string name, string description, string imageUrl, User user)
+    private ISprintFactory _sprintFactory;
+    
+    public Project(string name, string description, string imageUrl, User user, ISprintFactory sprintFactory)
     {
         Name = name;
         Description = description;
@@ -26,20 +28,16 @@ public class Project
             new Enrollment(user, ProjectRole.SCRUM_MASTER)
         };
         Sprints = new List<Sprint>();
-        BacklogItems = new List<BacklogItem>();
         Forum = new List<Forum.Thread>();
+        
+        _sprintFactory = sprintFactory;
     }
-    
-    public void AddBacklogItem(BacklogItem item)
+
+    public void CreateSprint(string name, string description, DateOnly startDate, DateOnly endDate, Pipeline.Pipeline pipeline, ISubject<string> notificationSubject, SprintType sprintType)
     {
-        BacklogItems.Add(item);
+        Sprints.Add(_sprintFactory.CreateSprint(name, description, startDate, endDate, this, pipeline, notificationSubject, sprintType));
     }
-    
-    public void AddSprint(Sprint sprint)
-    {
-        Sprints.Add(sprint);
-    }
-    
+
     public void AddThreadToForum(Forum.Thread thread)
     {
         Forum.Add(thread);
@@ -66,18 +64,18 @@ public class Project
         return Members.Where(e => e.Role == ProjectRole.TESTER).Select(e => e.User).ToList();
     }
     
-    public User GetProjectScrumMaster()
+    public User? GetProjectScrumMaster()
     {
-        return Members.Where(e => e.Role == ProjectRole.SCRUM_MASTER).Select(e => e.User).First() ?? throw new InvalidOperationException();
+        return Members.Where(e => e.Role == ProjectRole.SCRUM_MASTER).Select(e => e.User).First();
     }
     
-    public User GetProductOwner()
+    public User? GetProductOwner()
     {
-        return Members.Where(e => e.Role == ProjectRole.PRODUCT_OWNER).Select(e => e.User).First() ?? throw new InvalidOperationException();
+        return Members.Where(e => e.Role == ProjectRole.PRODUCT_OWNER).Select(e => e.User).First();
     }
     
     public bool CanUserMoveBacklogItemToDone(User user)
     {
-        return Members.Any(e => e.User == user && e.Role == ProjectRole.DEVELOPER || e.Role == ProjectRole.DEVELOPER);
+        return Members.Any(e => e.User == user && e.Role == ProjectRole.LEAD_DEVELOPER);
     }
 }

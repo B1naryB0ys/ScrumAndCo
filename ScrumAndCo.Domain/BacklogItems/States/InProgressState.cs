@@ -6,6 +6,6 @@ public class InProgressState(BacklogItem context) : ItemState(context)
 {
     public override void ToReadyForTesting()
     {
-        _context.ToReadyForTestingState();
+        _context.ChangeState(new ReadyForTestingState(_context));
     }
 }

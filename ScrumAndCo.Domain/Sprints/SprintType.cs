@@ -1,6 +1,6 @@
 ﻿namespace ScrumAndCo.Domain.Sprints;
 
-public enum SprintTypes
+public enum SprintType
 {
     Release,
     Review

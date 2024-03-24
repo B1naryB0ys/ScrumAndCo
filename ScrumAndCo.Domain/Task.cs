@@ -13,4 +13,9 @@ public class Task
         Description = description;
         AssignedTo = assignedTo;
     }
+    
+    public void MarkAsDone()
+    {
+        IsDone = true;
+    }
 }

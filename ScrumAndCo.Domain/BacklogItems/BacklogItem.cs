@@ -6,7 +6,7 @@ namespace ScrumAndCo.Domain.BacklogItems;
 
 public class BacklogItem
 {
-    private ItemState _backlogItemState;
+    public ItemState _backlogItemState;
 
     internal ISubject<string> _notificationSubject;
     
@@ -34,7 +34,6 @@ public class BacklogItem
         
         // Add the scrum master as a subscriber to the notification subject
         _notificationSubject = notificationSubject;
-        _notificationSubject.Attach(Project.GetProjectScrumMaster());
     }
     
     public void Subscribe(User user)
@@ -85,31 +84,36 @@ public class BacklogItem
     // State pattern methods
     public void ToTodoState()
     {
-        _backlogItemState = new TodoState(this);
+        _backlogItemState.ToTodo();
     }
 
     public void ToInProgressState()
     {
-        _backlogItemState = new InProgressState(this);
+        _backlogItemState.ToInProgress();
     }
 
     public void ToReadyForTestingState()
     {
-        _backlogItemState = new ReadyForTestingState(this);
+        _backlogItemState.ToReadyForTesting();
     }
 
     public void ToTestingState()
     {
-        _backlogItemState = new TestingState(this);
+        _backlogItemState.ToTesting();
     }
 
     public void ToTestedState()
     {
-        _backlogItemState = new TestedState(this);
+        _backlogItemState.ToTested();
     }
 
-    public void ToDoneState()
+    public void ToDoneState(User user)
     {
-        _backlogItemState = new DoneState(this);
+        _backlogItemState.ToDone(user);
+    }
+    
+    internal void ChangeState(ItemState state)
+    {
+        _backlogItemState = state;
     }
 }

@@ -1,23 +1,26 @@
 ﻿using ScrumAndCo.Domain.BacklogItems;
+using ScrumAndCo.Domain.Notifications;
 using ScrumAndCo.Domain.Sprints.States;
 using ScrumAndCo.Domain.Pipeline;
 namespace ScrumAndCo.Domain.Sprints;
 
 public abstract class Sprint
 {
-    private SprintState _sprintState;
+    public SprintState _sprintState;
     
-    // Internal properties can only be set from the constructor and in the PlanningState
-    internal string Name { get; set; }
-    internal string Description { get; set; }
-    internal DateOnly ActiveFrom { get; set; }
-    internal DateOnly ActiveUntil { get; set; }
+    // properties can only be set from the constructor and in the PlanningState
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public DateOnly ActiveFrom { get; set; }
+    public DateOnly ActiveUntil { get; set; }
     
     public Project Project { get; set; }
     public List<BacklogItem> BacklogItems { get; set; }
     public Pipeline.Pipeline Pipeline { get; set; }
     
-    public Sprint(string name, string description, DateOnly activeFrom, DateOnly activeUntil, Project project, Pipeline.Pipeline pipeline)
+    public ISubject<string> NotificationSubject { get; set; }
+    
+    public Sprint(string name, string description, DateOnly activeFrom, DateOnly activeUntil, Project project, Pipeline.Pipeline pipeline, ISubject<string> notificationSubject)
     {
         Name = name;
         Description = description;
@@ -27,6 +30,7 @@ public abstract class Sprint
         
         BacklogItems = new List<BacklogItem>();
         _sprintState = new PlanningState(this);
+        NotificationSubject = notificationSubject;
     }
 
     // Method to change the sprint state to the next state (f.e from PlanningState to OngoingState)
@@ -45,6 +49,12 @@ public abstract class Sprint
     public void ChangeProperties(string name, string description, DateOnly activeFrom, DateOnly activeUntil)
     {
         _sprintState.ChangeProperties(name, description, activeFrom, activeUntil);
+    }
+    
+    // Method to run the pipeline (Can only be called from the ReleaseState)
+    public void RunPipeline()
+    {
+        _sprintState.RunPipeLine();
     }
     
     // Method to add a backlog item to the sprint (Can only be called from the PlanningState)
