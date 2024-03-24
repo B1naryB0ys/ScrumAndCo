@@ -1,4 +1,5 @@
 ﻿using ScrumAndCo.Domain.BacklogItems;
+using ScrumAndCo.Domain.Exceptions;
 using ScrumAndCo.Domain.Notifications;
 using ScrumAndCo.Domain.Sprints.States;
 using ScrumAndCo.Domain.Pipeline;
@@ -13,6 +14,8 @@ public abstract class Sprint
     public string Description { get; set; }
     public DateOnly ActiveFrom { get; set; }
     public DateOnly ActiveUntil { get; set; }
+    
+    public bool IsLocked { get; set; }
     
     public Project Project { get; set; }
     public List<BacklogItem> BacklogItems { get; set; }
@@ -36,6 +39,7 @@ public abstract class Sprint
     // Method to change the sprint state to the next state (f.e from PlanningState to OngoingState)
     public void NextSprintState()
     {
+        if (IsLocked) throw new IllegalStateActionException("Cannot change sprint state when sprint is locked.");
         _sprintState.NextSprintState();
     }
 
@@ -44,6 +48,7 @@ public abstract class Sprint
     {
         ChangeSprintState(new ClosedState(this));
     }
+    
     
     // Method to change the properties of the sprint (Can only be called from the PlanningState)
     public void ChangeProperties(string name, string description, DateOnly activeFrom, DateOnly activeUntil)
@@ -55,6 +60,12 @@ public abstract class Sprint
     public void RunPipeline()
     {
         _sprintState.RunPipeLine();
+    }
+    
+    // Method to set the pipeline
+    public void SetPipeline(Pipeline.Pipeline pipeline)
+    {
+        Pipeline = pipeline;
     }
     
     // Method to add a backlog item to the sprint (Can only be called from the PlanningState)

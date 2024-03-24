@@ -25,6 +25,7 @@ public class ReleaseState : SprintState
     {
         try
         {
+            _context.IsLocked = true;
             _context.Pipeline.AcceptVisitor(new PipelineVisitor());
             
             // Notify the scrum master and product owner when the pipeline succeeds

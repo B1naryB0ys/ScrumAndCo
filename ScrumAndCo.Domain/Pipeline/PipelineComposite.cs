@@ -10,11 +10,6 @@ public abstract class PipelineComposite : PipelineStep
         _pipelineSteps.Add(component);
     }
     
-    public void RemovePipelineComponent(PipelineStep component)
-    {
-        _pipelineSteps.Remove(component);
-    }
-    
     public override void AcceptVisitor(IPipelineVisitor visitor)
     {
         foreach (var comp in _pipelineSteps)
@@ -25,9 +20,6 @@ public abstract class PipelineComposite : PipelineStep
     
     public override void Execute()
     {   
-        foreach (var comp in _pipelineSteps)
-        {
-            comp.Execute();
-        }
+        Console.WriteLine($"{GetType().Name}: Running");
     }
 }

@@ -105,7 +105,7 @@ public class SprintTests
         // Act
         sprint.NextSprintState(); // To Starting state (OngoingState)
         sprint.NextSprintState(); // To Finishing state (FinishedState)
-        sprint.NextSprintState(); // To Release state (ReviewState)
+        sprint.NextSprintState(); // To Review state (ReviewState)
         sprint.AddReviewFileUrl("https://scrumandco.com/review.pdf");
 
         
